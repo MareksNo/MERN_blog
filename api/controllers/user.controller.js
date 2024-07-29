@@ -114,7 +114,7 @@ export const getUsers = async (req, res, next) => {
       return rest;
     });
 
-    const totalUsers = User.countDocuments();
+    const totalUsers = await User.countDocuments();
 
     const now = new Date();
 
@@ -128,7 +128,9 @@ export const getUsers = async (req, res, next) => {
       createdAt: { $gte: oneMonthAgo },
     });
 
-    res.status(200).json(usersWithoutPassword, totalUsers, lastMonthUsers);
+    res
+      .status(200)
+      .json({ users: usersWithoutPassword, totalUsers, lastMonthUsers });
   } catch (error) {
     next(error);
   }
