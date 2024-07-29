@@ -89,7 +89,6 @@ export const updatepost = async (req, res, next) => {
     return next(errorHandler(403, "You are not allowed to delete this post"));
   }
   try {
-    console.log(req.params);
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.postId,
       {
@@ -102,7 +101,7 @@ export const updatepost = async (req, res, next) => {
       },
       { new: true }
     );
-    console.log(updatedPost);
+
     res.status(200).json(updatedPost);
   } catch (error) {
     next(error);
